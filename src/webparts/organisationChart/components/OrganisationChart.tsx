@@ -11,6 +11,7 @@ import { ServiceScope, Environment, EnvironmentType } from '@microsoft/sp-core-l
 import { IPerson, IUserProfileService } from '../interfaces';
 import { UserProfileService } from '../services';
 import { MockUserProfileService } from '../mocks';
+import styles from './OrganisationChart.module.scss';
 
 export interface IOrganisationChartWebPartState {
   managers?: IPerson[];
@@ -33,6 +34,7 @@ class PersonaList extends React.Component<IPersonaListProps, {}> {
         {this.props.users.map((user, index) => (
           <div key={index}>
             <Persona
+              className={styles.persona}
               imageUrl={this.props.getProfilePhoto(user.PictureUrl)}
               primaryText={user.DisplayName}
               secondaryText={user.Title}

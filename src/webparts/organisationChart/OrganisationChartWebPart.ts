@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as ReactDom from 'react-dom';
-import { Version } from '@microsoft/sp-core-library';
 import {
   BaseClientSideWebPart,
   IPropertyPaneConfiguration,
@@ -14,7 +13,6 @@ import { IOrganisationChartWebPartProps } from './IOrganisationChartWebPartProps
 
 
 export default class OrganisationChartWebPart extends BaseClientSideWebPart<IOrganisationChartWebPartProps> {
-
   public render(): void {
     const element: React.ReactElement<IOrganisationChartProps> = React.createElement(
       OrganisationChart, {
@@ -23,10 +21,6 @@ export default class OrganisationChartWebPart extends BaseClientSideWebPart<IOrg
       });
 
     ReactDom.render(element, this.domElement);
-  }
-
-  protected get dataVersion(): Version {
-    return Version.parse('1.0');
   }
 
   protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
