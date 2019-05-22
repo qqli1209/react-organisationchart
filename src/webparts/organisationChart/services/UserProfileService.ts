@@ -35,6 +35,7 @@ export class UserProfileService implements IUserProfileService {
     return this._getPropertiesForUsers(userLoginNames);
   }
 
+  // 调用 SharePoint UserProfiles API 拿 user 的信息
   private _getPropertiesForUsers(userLoginNames: string[]): Promise<IPerson[]> {
     return new Promise<IPerson[]>((resolve, reject) => {
       //at least 1 login name should be supplied
@@ -56,7 +57,6 @@ export class UserProfileService implements IUserProfileService {
           userResponses.push(getUserProps);
         }
 
-        // Make the batch request
         spBatch.execute().then(() => {
           userResponses.forEach((item, index) => {
             item.then((response: SPHttpClientResponse) => {
