@@ -28,16 +28,14 @@ export class UserProfileService implements IUserProfileService {
   }
 
   public getManagers(userLoginNames: string[]): Promise<IPerson[]> {
-    return this.getPropertiesForUsers(userLoginNames);
+    return this._getPropertiesForUsers(userLoginNames);
   }
 
   public getReports(userLoginNames: string[]): Promise<IPerson[]> {
-    return this.getPropertiesForUsers(userLoginNames);
+    return this._getPropertiesForUsers(userLoginNames);
   }
 
-  private getPropertiesForUsers(userLoginNames: string[]): Promise<IPerson[]> {
-
-
+  private _getPropertiesForUsers(userLoginNames: string[]): Promise<IPerson[]> {
     return new Promise<IPerson[]>((resolve, reject) => {
       //at least 1 login name should be supplied
       if (userLoginNames.length > 0) {
@@ -50,9 +48,11 @@ export class UserProfileService implements IUserProfileService {
         const userResponses: Promise<SPHttpClientResponse>[] = [];
 
         for (const userLoginName of userLoginNames) {
-          const getUserProps: Promise<SPHttpClientResponse> = spBatch.get(`${this._currentWebUrl}/_api/SP.UserProfiles.PeopleManager/GetPropertiesFor(accountName=@v)?@v='${encodeURIComponent(userLoginName)}'
-        &$select=DisplayName,Title,UserUrl,PictureUrl,DirectReports,ExtendedManagers`,
+          const getUserProps: Promise<SPHttpClientResponse> = spBatch.get(
+            `${this._currentWebUrl}/_api/SP.UserProfiles.PeopleManager/GetPropertiesFor(accountName=@v)?@v='${encodeURIComponent(userLoginName)}'
+              &$select=DisplayName,Title,UserUrl,PictureUrl,DirectReports,ExtendedManagers`,
             SPHttpClientBatch.configurations.v1);
+
           userResponses.push(getUserProps);
         }
 
