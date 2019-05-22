@@ -50,7 +50,6 @@ class PersonaList extends React.Component<IPersonaListProps, {}> {
 }
 
 export default class OrganisationChart extends React.Component<IOrganisationChartProps, IOrganisationChartWebPartState> {
-
   private userProfileServiceInstance: IUserProfileService;
 
   constructor(props: IOrganisationChartProps) {
@@ -112,6 +111,10 @@ export default class OrganisationChart extends React.Component<IOrganisationChar
     );
   }
 
+  public getProfilePhoto(photoUrl: string): string {
+    return this.userProfileServiceInstance.getProfilePhoto(photoUrl);
+  }
+
   public onProfileLinkClick(profileLink: string): void {
     window.open(profileLink);
   }
@@ -120,12 +123,7 @@ export default class OrganisationChart extends React.Component<IOrganisationChar
     this._getUserProperties();
   }
 
-  public getProfilePhoto(photoUrl: string): string {
-    return this.userProfileServiceInstance.getProfilePhoto(photoUrl);
-  }
-
   private _getUserProperties(): void {
-
     // Get the current user details
     this.userProfileServiceInstance.getPropertiesForCurrentUser().then((person: IPerson) => {
       this.setState({ user: person });
