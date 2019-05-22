@@ -35,6 +35,10 @@ export class UserProfileService implements IUserProfileService {
     return this._getPropertiesForUsers(userLoginNames);
   }
 
+  public getProfilePhoto(photoUrl: string) {
+    return `/_layouts/15/userphoto.aspx?size=M&url=${photoUrl}`;
+  }
+
   // 调用 SharePoint UserProfiles API 拿 user 的信息
   private _getPropertiesForUsers(userLoginNames: string[]): Promise<IPerson[]> {
     return new Promise<IPerson[]>((resolve, reject) => {
@@ -71,11 +75,5 @@ export class UserProfileService implements IUserProfileService {
         });
       }
     });
-  }
-
-  //SharePoint does not return the userphoto if the current user has not currently signed in to their MySite (ODfB site)
-  //This method of getting the user photo works in all scenarios.
-  public getProfilePhoto(photoUrl: string) {
-    return `/_layouts/15/userphoto.aspx?size=M&url=${photoUrl}`;
   }
 }
